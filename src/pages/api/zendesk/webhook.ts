@@ -5,11 +5,13 @@ import { Ticket } from "./types";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const ticket = req.body as Ticket;
 
+  console.log(ticket);
+
   ticket.content = parseTicketContent(ticket.latestComment);
 
   const aiResponse = await aiTicketResponse(ticket);
 
-  console.log(aiResponse);
+  // console.log(aiResponse);
 
   res.status(200).json({ pizza: "🍕", aiResponse });
 };
