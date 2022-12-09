@@ -10,7 +10,7 @@ export const aiTicketResponse = async (ticket: Ticket) => {
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: `${ticket.requesterFirstName} has created a customer service ticket.  Here is the message:\n\n${ticket.latestComment}\n\n Create a thorough and kind response.\n\n###`,
-    max_tokens: 1000,
+    max_tokens: 4096,
     temperature: 0,
     top_p: 1,
     n: 1,
