@@ -9,7 +9,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const aiResponse = await aiTicketResponse(ticket);
 
-  res.status(200).json({ aiResponse });
+  console.log(aiResponse);
+
+  res.status(200).json({ pizza: "🍕", aiResponse });
 };
 
 const parseTicketContent = (ticketContent: string) => {
