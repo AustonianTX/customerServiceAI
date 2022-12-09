@@ -9,7 +9,7 @@ const openai = new OpenAIApi(configuration);
 export const aiTicketResponse = async (ticket: Ticket) => {
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `Austin has written us a ticket.  Here is his message:\n\n${ticket.latestComment}\n\n Create a thorugh response to him.\n\n###`,
+    prompt: `${ticket.requesterFirstName} has created a customer service ticket.  Here is the message:\n\n${ticket.latestComment}\n\n Create a thorough and kind response.\n\n###`,
     max_tokens: 1000,
     temperature: 0,
     top_p: 1,
