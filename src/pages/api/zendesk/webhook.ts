@@ -1,11 +1,19 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
+import { aiTicketResponse } from "./ai";
+import { Ticket } from "./types";
 
-const examples = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("we testing the webhook!");
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const ticket = req.body as Ticket;
 
-  console.log(req?.body);
+  ticket.content = parseTicketContent(ticket.latestComment);
 
-  res.status(200).json({ pizza: "yummy" });
+  const aiResponse = await aiTicketResponse(ticket);
+
+  res.status(200).json({ aiResponse });
 };
 
-export default examples;
+const parseTicketContent = (ticketContent: string) => {
+  return ticketContent.replace(/[^a-zA-Z0-9\s]/g, "").replace(/<[^>]*>\s/g, "");
+};
+
+export default handler;
