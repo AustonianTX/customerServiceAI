@@ -7,13 +7,13 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export const aiTicketResponse = async (ticket: Ticket) => {
+  const prompt = buildPrompt(ticket);
+
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `${ticket.requesterFirstName} has created a customer service ticket.  Here is the message:\n\n${ticket.latestComment}\n\n Create a thorough and kind response.\n\n###`,
-    // prompt:
-    //   "Austin has created a customer service ticket.  Here is the message:\\n\\n----------------------------------------------\\n\\nWhat are the best breeds to raise in my backyard?\\n\\n Create a thorough and kind response.\\n\\n###",
+    prompt: prompt,
     max_tokens: 1000,
-    temperature: 0,
+    temperature: 0.3,
     top_p: 1,
     n: 1,
     stream: false,
@@ -22,4 +22,22 @@ export const aiTicketResponse = async (ticket: Ticket) => {
   });
 
   return completion?.data?.choices[0]?.text;
+};
+
+const buildPrompt = (ticket: Ticket) => {
+  let prompt = `We have received a customer service ticket from ${ticket.requesterFirstName} ${ticket.requesterLastName}.`;
+
+  if (ticket?.orders?.length > 0) {
+    prompt += ` They have place ${
+      ticket?.orders?.length
+    } Their order history is ${JSON.stringify(ticket.orders)}.\n`;
+  } else {
+    prompt += ` They have not placed an order with us.\n`;
+  }
+
+  prompt += ` Here is their message:\n\n${ticket.latestComment}\n\n`;
+
+  prompt += `Create a thorough and kind response.\n\n###`;
+
+  return prompt;
 };
