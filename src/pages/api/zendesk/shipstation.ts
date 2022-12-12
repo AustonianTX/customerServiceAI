@@ -5,7 +5,7 @@ import type { Ticket } from "./types";
 
 export const getShipStationOrders = async (ticket: Ticket) => {
   const rawOrders = await fetch(
-    `https://ssapi.shipstation.com/orders?customerName=${ticket.requesterEmail}&sortBy=CreateDate&sortDir=DESC`,
+    `https://ssapi.shipstation.com/orders?customerName=${ticket.requesterEmail}&sortBy=CreateDate&sortDir=DESC&pageSize=3`,
     {
       method: "GET",
       headers: {
