@@ -1,4 +1,4 @@
-import { Ticket } from "./types";
+import type { Ticket } from "./types";
 
 // TODO: ENSURE THAT I CAN MAKE BASIC ZENDESK API CALLS
 

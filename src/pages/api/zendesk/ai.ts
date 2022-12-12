@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
-import { Ticket } from "./types";
+import type { Ticket } from "./types";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,

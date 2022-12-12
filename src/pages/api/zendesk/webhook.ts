@@ -2,7 +2,7 @@ import { type NextApiRequest, type NextApiResponse } from "next";
 import { aiTicketResponse } from "./ai";
 import { getShipStationOrders } from "./shipstation";
 
-import { Ticket } from "./types";
+import type { Ticket } from "./types";
 import { updateTicket } from "./zendesk";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
