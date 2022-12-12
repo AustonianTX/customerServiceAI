@@ -27,8 +27,8 @@ export const aiTicketResponse = async (ticket: Ticket) => {
 const buildPrompt = (ticket: Ticket) => {
   let prompt = `We have received a customer service ticket from ${ticket.requesterFirstName} ${ticket.requesterLastName}.`;
 
-  if (ticket?.orders?.length > 0) {
-    prompt += ` They have place ${
+  if (ticket?.orders) {
+    prompt += ` They have placed ${
       ticket?.orders?.length
     } Their order history is ${JSON.stringify(ticket.orders)}.\n`;
   } else {
