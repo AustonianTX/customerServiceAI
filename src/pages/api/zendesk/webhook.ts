@@ -20,9 +20,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const aiResponse = await aiTicketResponse(ticket);
 
-  // if (aiResponse) {
-  //   await updateTicket(ticket, aiResponse);
-  // }
+  if (aiResponse) {
+    await updateTicket(ticket, aiResponse);
+  }
 
   res.status(200).json({
     aiResponse,
